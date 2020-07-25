@@ -1,15 +1,13 @@
 #include "Huffman.h"
 #include <iostream>
 
-using namespace std;
-
 HuffManTree::HuffManTree(int freqs[])
 {
     root = NULL;
     for (int i = 0; i < 257; i++) //Copiando as frequencias
         freq[i] = freqs[i];
 
-    MyPriorityQueue<HuffNode*> pq;
+    std::priority_queue<HuffNode*> pq;
 
     for (int j = 0; j < 256; j++) { //Criando os nodos com os caracteres de 0 a 256
 
@@ -99,7 +97,7 @@ void HuffManTree::preProcessaCompressao()
     /* Funcao importante: Esta funcao armazena os respectivos bits de cada caractere de nossa arvore,
     sua complexidade e' O(HuffNodes) pois percorre todos os nodos da arvore e armazena os vetores de bool. 
     Possui uma funcao auxiliar para sua recursividade, a preProcessaAuxiliar. */
-    string temp = "";
+    std::string temp = "";
 
     if (root->souUmChar)
         preProcessaAuxiliar(root, temp + "0");
@@ -108,7 +106,7 @@ void HuffManTree::preProcessaCompressao()
     
 }
 
-void HuffManTree::preProcessaAuxiliar(HuffNode* ptr, const string& temp)
+void HuffManTree::preProcessaAuxiliar(HuffNode* ptr, const std::string& temp)
 {
     /* Funcao auxiliar que armazena '1' e '0' nos vetores de bool durante o percurso
     recursivo. */
@@ -134,7 +132,7 @@ void HuffManTree::preProcessaAuxiliar(HuffNode* ptr, const string& temp)
     
 }
 
-void HuffManTree::comprimir(vector<bool>& out, const vector<char>& in) const
+void HuffManTree::comprimir(std::vector<bool>& out, const std::vector<char>& in) const
 {
     /* Nesta funcao usaremos nossos bits preProcessados pelas funcoes anteriores,
     percorreremos nosso vetor de Char recebido (in) e adicionaremos os respectivos bits
@@ -148,7 +146,7 @@ void HuffManTree::comprimir(vector<bool>& out, const vector<char>& in) const
     return;
 }
 
-void HuffManTree::descomprimir(vector<char>& out, const vector<bool>& in) const
+void HuffManTree::descomprimir(std::vector<char>& out, const std::vector<bool>& in) const
 {
     /* Para descomprimir, realizamos o seguinte algoritmo:
        1- Comece da raiz

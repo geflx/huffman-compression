@@ -1,10 +1,8 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
-#include "MyVecNewIterator.h"
-#include "MyPriorityQueue.h"
-
 #include <vector>
+#include <queue>
 #include <string>
 
 class HuffNode {
@@ -39,18 +37,18 @@ public:
 
     HuffManTree& operator=(const HuffManTree& obj);
 
-    void comprimir(vector<bool>& out, const vector<char>& in) const;
-    void descomprimir(vector<char>& out, const vector<bool>& in) const;
+    void comprimir(std::vector<bool>& out, const std::vector<char>& in) const;
+    void descomprimir(std::vector<char>& out, const std::vector<bool>& in) const;
 
 private:
 
     void preProcessaCompressao();
-    void preProcessaAuxiliar(HuffNode* ptr, const string& temp);
+    void preProcessaAuxiliar(HuffNode* ptr, const std::string& temp);
 
     /*Note que o vetor de frequencias contem 257 espacos, isto ocorre pois o ultimo espaco (posicao 256) foi destinada
         a armazenar o numero de bits que foi/sera gravado no arquivo. */
-    vector<int> freq = vector<int>(257, 0);
-    vector<vector<bool> > bits = vector<vector<bool> >(256);
+    std::vector<int> freq = std::vector<int>(257, 0);
+    std::vector<std::vector<bool> > bits = std::vector<std::vector<bool> >(256);
     HuffNode* root;
 
     HuffNode* copyNodes(const HuffNode* obj);
