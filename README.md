@@ -1,4 +1,4 @@
-# Huffman File Compression
+# Huffman File Compression :deciduous_tree:
 
 An application to easily and optimally (proved) compress files **without losing any data**.  
 This can be used to compress **high precision files**, or simply to **free some space** on your disk!
