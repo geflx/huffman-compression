@@ -1,7 +1,7 @@
 # Huffman Tree :deciduous_tree: File Compression 
 
 An application to easily and optimally (proved) compress files **without losing any data**.  
-This can be used to compress **high precision files**, or simply to **free some space** on your disk!
+This application can be very **fast** and **reduce file size** when the input file contains a lot of repeated characters.
 
 ## How to run?
 
@@ -31,10 +31,14 @@ ABBBBBBBBACD
 ```
 Notice that "B" is by far the most repeated character in file (8x), followed by "A" (2x), C and D (1x).  
 So we will codify B as "0", A as "10", C as "110" and D as "111".  
-The main idea is to use **represent with less bits** the most repeated characters, to **economize space**. The diagram is shown below:
+The main idea is to use **represent with less bits** the most repeated characters, to **economize space**. The example diagram is shown below:  
 
 <p align="center">
-	<td><img src="assets/example.png" width=460 height=548></td>
+	<td><img src="assets/example.png" width=150 height=220></td>
 </p>
 
+After optimally codify the characters, it is easy to decodify the file using a "master" array which tell us which boolean array represents each character.
+
 ## Conclusions
+
+The development of this application was very important to understand better about file representatation and also improve my tecniques about file handling.

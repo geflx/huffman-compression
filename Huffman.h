@@ -1,18 +1,23 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
+// Data Structures.
 #include <vector>
 #include <queue>
 #include <string>
 
+/* 
+    @author = Gabriel Felix
+    @date = June/2019
+    @site = github.com/geflx/huffman-compression
+*/
+
 class HuffNode {
 public:
-    /*HuffNode recebe o vetor de frequencias, um char do respectivo caractere, que por padrao  eh: '0'.
-        Existe tambem um booleano chamado souUmChar, que indica se o nodo e' ou nao um Nodo que carrega um char ou se ele
-        e' um nodo de ligacao.
-         */
-    HuffNode(int freqs, char c_ = '0', bool souUmChar_ = false)
-        : souUmChar(souUmChar_)
+
+    // HuffNode: char frequency, char and bool indicator if node is a char end.
+    HuffNode(int freqs, char c_ = '0', bool isChar_ = false)
+        : isChar(isChar_)
         , freq(freqs)
         , c(c_)
         , right(NULL)
@@ -21,7 +26,7 @@ public:
     int freq;
 
     char c;
-    bool souUmChar;
+    bool isChar;
 
     HuffNode* right;
     HuffNode* left;
@@ -37,18 +42,17 @@ public:
 
     HuffManTree& operator=(const HuffManTree& obj);
 
-    void comprimir(std::vector<bool>& out, const std::vector<char>& in) const;
-    void descomprimir(std::vector<char>& out, const std::vector<bool>& in) const;
+    void compress(std::vector<bool>& out, const std::vector<char>& in) const;
+    void decompress(std::vector<char>& out, const std::vector<bool>& in) const;
 
 private:
 
-    void preProcessaCompressao();
-    void preProcessaAuxiliar(HuffNode* ptr, const std::string& temp);
+    void compressionPreProcessing();
+    void preProcessingAuxiliar(HuffNode* ptr, const std::string& temp);
 
-    /*Note que o vetor de frequencias contem 257 espacos, isto ocorre pois o ultimo espaco (posicao 256) foi destinada
-        a armazenar o numero de bits que foi/sera gravado no arquivo. */
+    // Char frequency: 256 chars + 1 position indicating total bits.
     std::vector<int> freq = std::vector<int>(257, 0);
-    std::vector<std::vector<bool> > bits = std::vector<std::vector<bool> >(256);
+    std::vector<std::vector<bool>> bits = std::vector<std::vector<bool>>(256);
     HuffNode* root;
 
     HuffNode* copyNodes(const HuffNode* obj);

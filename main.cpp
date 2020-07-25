@@ -4,6 +4,8 @@
 
 /* 
     @author = Gabriel Felix
+    @date = June/2019
+    @site = github.com/geflx/huffman-compression
 */
 
 int main(int argc, char** argv)
@@ -19,7 +21,7 @@ int main(int argc, char** argv)
     std::string file1 = argv[2]; 
     std::string file2 = argv[3]; 
 
-    if (operation == "compress") { 
+    if (operation == "c") { 
 
         std::ifstream source(file1);
         std::ofstream output(file2, std::ifstream::binary);
@@ -55,7 +57,7 @@ int main(int argc, char** argv)
         }
 
         HuffManTree my_tree(frequency);
-        my_tree.comprimir(out, in);
+        my_tree.compress(out, in);
 
         // Bit counter will be saved in position[257].
         totalBits = out.size(); 
@@ -93,7 +95,7 @@ int main(int argc, char** argv)
         pointer.close();
         delete[] outTemp;
     }
-    else if (operation == "decompress") {
+    else if (operation == "d") {
 
         std::ifstream source(file1, std::ifstream::binary);
         std::ofstream output(file2);
@@ -122,9 +124,9 @@ int main(int argc, char** argv)
         std::vector<bool> in(totalBits);
 
         // Pointing to file begin and reading data from it.
-        char* boolLeitura = new char[totalChars];
+        char* inputBooleans = new char[totalChars];
         source.seekg(257 * sizeof(int), source.beg);
-        source.read(boolLeitura, totalChars * sizeof(char));
+        source.read(inputBooleans, totalChars * sizeof(char));
 
         // Transforming implicit data inside chars into a real boolean array.
         int aux = 0;
@@ -134,7 +136,7 @@ int main(int argc, char** argv)
             for (int j = 0; j < 8 && aux < totalBits; j++, aux++) { 
 
                 // Read the 8 bits inside a char and create an 8-bit boolean array.
-                if (boolLeitura[i] & ((1u) << (7 - j))) 
+                if (inputBooleans[i] & ((1u) << (7 - j))) 
                     in[inputPos] = true;
                 else 
                     in[inputPos] = false;
@@ -145,7 +147,7 @@ int main(int argc, char** argv)
 
         // Create huffman tree and decompress.
         HuffManTree my_tree(frequency); //Crie a my_tree e descomprima
-        my_tree.descomprimir(out, in);
+        my_tree.decompress(out, in);
 
         // Printing answer's char array in output file. 
         char* outputChar = new char[out.size()];
@@ -154,7 +156,7 @@ int main(int argc, char** argv)
         output.write(outputChar, out.size());
 
         //Freeing memory.
-        delete[] boolLeitura;
+        delete[] inputBooleans;
         delete[] outputChar;
 
         // Closing files.
