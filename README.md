@@ -12,11 +12,11 @@ $ make
 ```
 3- To **compress** a file "myFile.extension", input the following command:
 ```
-./a.out compress myFile.extension compressed.huff
+$ ./a.out compress myFile.extension compressed.huff
 ```
 4- To **decompress** a file "compressed.huff", now type:
 ```
-./a.out decompress compressed.huff myFile.extension 
+$ ./a.out decompress compressed.huff myFile.extension 
 ```
 
 Now, your file "myFile.extension" is ready to go!
